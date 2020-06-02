@@ -2,39 +2,40 @@
 
 namespace FondOfSpryker\Yves\SimpleRouter\Plugin\RequestMatcher;
 
-use FondOfSpryker\Shared\SimpleRouter\SimpleRouterConstants;
 use FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\RequestMatcherPluginInterface;
 use Spryker\Yves\Kernel\AbstractPlugin;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 /**
  * Class CrawlerRequestMatcherPlugin
+ *
  * @method \FondOfSpryker\Yves\SimpleRouter\SimpleRouterFactory getFactory()
  * @method \FondOfSpryker\Yves\SimpleRouter\SimpleRouterConfig getConfig()
  */
-class DisableRoutesRequestMatcherPlugin extends AbstractPlugin implements RequestMatcherPluginInterface
+class ExcludeRoutesHandledBySimpleRouterRequestMatcherPlugin extends AbstractPlugin implements RequestMatcherPluginInterface
 {
     /**
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Symfony\Component\Routing\Exception\ResourceNotFoundException
      *
      * @return array
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function handle(Request $request): array
     {
         if ($this->hasPrefixAndUsesMethod($request->getPathInfo(), $request->getMethod())) {
-            return ['type' => SimpleRouterConstants::RESOURCE_NOT_FOUND_TYPE];
+            throw new ResourceNotFoundException();
         }
 
         return [];
     }
 
     /**
-     * @param  string  $pathInfo
-     * @param  string  $method
+     * @param string $pathInfo
+     * @param string $method
      *
      * @return bool
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function hasPrefixAndUsesMethod(string $pathInfo, string $method): bool
     {
@@ -49,8 +50,8 @@ class DisableRoutesRequestMatcherPlugin extends AbstractPlugin implements Reques
     }
 
     /**
-     * @param  string  $pathInfo
-     * @param  string  $startingPart
+     * @param string $pathInfo
+     * @param string $startingPart
      *
      * @return bool
      */
@@ -60,10 +61,9 @@ class DisableRoutesRequestMatcherPlugin extends AbstractPlugin implements Reques
     }
 
     /**
-     * @param  string  $pathInfo
+     * @param string $pathInfo
      *
      * @return string
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function removeLanguageStuffFronmPathInfo(string $pathInfo): string
     {
@@ -71,11 +71,12 @@ class DisableRoutesRequestMatcherPlugin extends AbstractPlugin implements Reques
         foreach ($locales as $locale) {
             $pathInfo = str_replace(sprintf('/%s', $locale), '', $pathInfo);
         }
+
         return $pathInfo;
     }
 
     /**
-     * @param  string  $method
+     * @param string $method
      * @param $methods
      *
      * @return bool
