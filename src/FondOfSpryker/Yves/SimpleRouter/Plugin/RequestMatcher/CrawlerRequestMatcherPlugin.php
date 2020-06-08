@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
  * Class CrawlerRequestMatcherPlugin
  *
  * @method \FondOfSpryker\Yves\SimpleRouter\SimpleRouterFactory getFactory()
+ * @method \FondOfSpryker\Yves\SimpleRouter\SimpleRouterConfig getConfig()
  */
 class CrawlerRequestMatcherPlugin extends AbstractPlugin implements RequestMatcherPluginInterface
 {
@@ -23,18 +24,10 @@ class CrawlerRequestMatcherPlugin extends AbstractPlugin implements RequestMatch
      */
     public function handle(Request $request): array
     {
-        if ($this->isCrawler()) {
+        if ($this->getFactory()->createRedirectValidator()->redirectCrawler() === false) {
             throw new ResourceNotFoundException();
         }
 
         return [];
-    }
-
-    /**
-     * @return bool
-     */
-    protected function isCrawler(): bool
-    {
-        return $this->getFactory()->createCrawlerDetect()->isCrawler();
     }
 }

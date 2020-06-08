@@ -22,7 +22,7 @@ class RemoveTrailingSlashAndRedirectRequestMatcherPlugin extends AbstractPlugin 
      */
     public function handle(Request $request): array
     {
-        if ($this->hasTrailingSlash($request->getPathInfo())) {
+        if ($this->hasTrailingSlash($request->getPathInfo()) && $this->getFactory()->createRedirectValidator()->isRemoveTrailingSlashRedirectAllowed()) {
             return $this->redirectWithoutTrailingSlash($request);
         }
 

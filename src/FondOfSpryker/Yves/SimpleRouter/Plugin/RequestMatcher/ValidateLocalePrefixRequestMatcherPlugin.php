@@ -25,7 +25,7 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     public function handle(Request $request): array
     {
         $pathInfo = $request->getPathInfo();
-        if ($this->hasValidLocalePrefix($pathInfo) === false) {
+        if ($this->hasValidLocalePrefix($pathInfo) === false ) {
             return $this->redirectWithLocale($request, $pathInfo);
         }
 

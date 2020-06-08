@@ -52,7 +52,7 @@ class RouterLanguageRedirectEventDispatcherPlugin extends AbstractPlugin impleme
     ): EventDispatcherInterface {
         $eventDispatcher->addListener(KernelEvents::REQUEST, function (RequestEvent $event): void {
             $request = $event->getRequest();
-            if ($request->getPathInfo() === '/') {
+            if ($request->getPathInfo() === '/' && $this->getFactory()->createRedirectValidator()->isLanguageRedirectAllowed() === true) {
                 $event->setResponse($this->createLanguageRedirectResponse());
             }
         });

@@ -4,6 +4,7 @@ namespace FondOfSpryker\Yves\SimpleRouter\Plugin\RequestMatcher;
 
 use FondOfSpryker\Shared\SimpleRouter\SimpleRouterConstants;
 use FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\RequestMatcherPluginInterface;
+use FondOfSpryker\Yves\SimpleRouter\Exception\WrongConfigurationException;
 use Spryker\Yves\Kernel\AbstractPlugin;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,6 +16,11 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class AlwaysRedirectFromBlacklistedLocaleRequestMatcherPlugin extends AbstractPlugin implements RequestMatcherPluginInterface
 {
+    public const DEFAULT_REDIRECT_LOCALE = '/en';
+
+    protected const FROM = 'from';
+    protected const TO = 'to';
+
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -23,9 +29,10 @@ class AlwaysRedirectFromBlacklistedLocaleRequestMatcherPlugin extends AbstractPl
     public function handle(Request $request): array
     {
         $pathInfo = $request->getPathInfo();
+        $defaultLocale = $this->isLocaleBlacklisted($pathInfo);
 
-        if ($this->isLocaleBlacklisted($pathInfo)) {
-            return $this->redirectToLocaleDe($pathInfo, $request);
+        if ($defaultLocale !== []) {
+            return $this->redirectToLocale($pathInfo, $request, $defaultLocale);
         }
 
         return [];
@@ -34,17 +41,20 @@ class AlwaysRedirectFromBlacklistedLocaleRequestMatcherPlugin extends AbstractPl
     /**
      * @param string $pathInfo
      *
-     * @return bool
+     * @return array
      */
-    protected function isLocaleBlacklisted(string $pathInfo): bool
+    protected function isLocaleBlacklisted(string $pathInfo): array
     {
-        foreach ($this->getConfig()->getBlacklistedLocale() as $blacklistedLocale) {
-            if ($this->pathStartsWith($pathInfo, sprintf('/%s', ltrim(rtrim($blacklistedLocale, '/'), '/'))) === true) {
-                return true;
+        foreach ($this->getConfig()->getBlacklistedLocale() as $blacklistedLocale => $redirectTo) {
+            if ($this->pathStartsWith($pathInfo, sprintf('/%s', $this->cleanString($blacklistedLocale))) === true) {
+                return [
+                    static::FROM => $blacklistedLocale,
+                    static::TO => $redirectTo,
+                ];
             }
         }
 
-        return false;
+        return [];
     }
 
     /**
@@ -71,18 +81,19 @@ class AlwaysRedirectFromBlacklistedLocaleRequestMatcherPlugin extends AbstractPl
     /**
      * @param string $pathInfo
      * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param array $redirectLocale
      *
      * @return string[]
      */
-    protected function redirectToLocaleDe(string $pathInfo, Request $request): array
+    protected function redirectToLocale(string $pathInfo, Request $request, array $redirect): array
     {
-        $pathInfoWithoutLocale = substr($pathInfo, 3);
+        $redirectLocale = $this->prepareRedirectLocale($redirect);
+//        $pathInfoWithoutLocale = $this->cleanString(substr($pathInfo, strlen($redirect[static::FROM])));
 
         $uri = sprintf(
-            '%s/%s%s',
+            '%s/%s',
             $request->getSchemeAndHttpHost(),
-            'de',
-            $pathInfoWithoutLocale
+            $redirectLocale
         );
 
         $uri = $this->appendQueryStringToUri($uri, $request);
@@ -115,5 +126,38 @@ class AlwaysRedirectFromBlacklistedLocaleRequestMatcherPlugin extends AbstractPl
     protected function createRedirect(string $toUri, int $statusCode = 301): array
     {
         return ['to_url' => $toUri, 'status' => $statusCode, 'type' => SimpleRouterConstants::REDIRECT_TYPE];
+    }
+
+    /**
+     * @param string|array $redirectLocale
+     *
+     * @throws \FondOfSpryker\Yves\SimpleRouter\Exception\WrongConfigurationException
+     *
+     * @return string
+     */
+    protected function prepareRedirectLocale(array $redirectLocale): string
+    {
+        if ($redirectLocale === [] || is_numeric($redirectLocale[static::FROM])) {
+            throw new WrongConfigurationException('Please configure mapping like [from => to] eg. $config[SimpleRouterConstants::BLACKLISTED_LOCALE_PREFIXES] = [\'/ch\' => \'/de\'];');
+        }
+
+        if (empty($redirectLocale[static::TO])) {
+            $redirectLocale[static::TO] = static::DEFAULT_REDIRECT_LOCALE;
+        }
+
+        return $this->cleanString($redirectLocale[static::TO]);
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    protected function cleanString(string $string): string
+    {
+        $string = ltrim($string, '/');
+        $string = rtrim($string, '/');
+
+        return $string;
     }
 }
