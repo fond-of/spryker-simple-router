@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @method \FondOfSpryker\Yves\SimpleRouter\SimpleRouterFactory getFactory()
  * @method \FondOfSpryker\Yves\SimpleRouter\SimpleRouterConfig getConfig()
  */
-class RemoveTrailingSlashAndRedirectRequestMatcherPlugin extends AbstractPlugin implements RequestMatcherPluginInterface
+class AddTrailingSlashForHomeAndRedirectRequestMatcherPlugin extends AbstractPlugin implements RequestMatcherPluginInterface
 {
     /**
      * @param  \Symfony\Component\HttpFoundation\Request  $request
@@ -22,8 +22,8 @@ class RemoveTrailingSlashAndRedirectRequestMatcherPlugin extends AbstractPlugin 
      */
     public function handle(Request $request): array
     {
-        if ($this->hasTrailingSlash($request->getPathInfo()) && $this->getFactory()->createRedirectValidator()->isRemoveTrailingSlashRedirectAllowed($request)) {
-            return $this->redirectWithoutTrailingSlash($request);
+        if ($this->hasTrailingSlash($request->getPathInfo()) === false && $this->getFactory()->createRedirectValidator()->isHome($request)) {
+            return $this->redirectWithTrailingSlash($request);
         }
 
         return [];
@@ -44,9 +44,9 @@ class RemoveTrailingSlashAndRedirectRequestMatcherPlugin extends AbstractPlugin 
      *
      * @return array
      */
-    protected function redirectWithoutTrailingSlash(Request $request): array
+    protected function redirectWithTrailingSlash(Request $request): array
     {
-        $uri = substr($request->getSchemeAndHttpHost() . $request->getPathInfo(), 0, -1);
+        $uri = sprintf('%s/', $request->getPathInfo());
         $uri = $this->appendQueryStringToUri($uri, $request);
 
         return $this->createRedirect($uri);

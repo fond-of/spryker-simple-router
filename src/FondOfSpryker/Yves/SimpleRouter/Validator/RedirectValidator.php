@@ -2,7 +2,9 @@
 
 namespace FondOfSpryker\Yves\SimpleRouter\Validator;
 
+use Spryker\Shared\Kernel\Store;
 use Spryker\Yves\Kernel\AbstractPlugin;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class RedirectValidator
@@ -14,6 +16,21 @@ use Spryker\Yves\Kernel\AbstractPlugin;
 class RedirectValidator extends AbstractPlugin implements RedirectValidatorInterface
 {
     //ToDo: after Upgrade create real validator
+
+    /**
+     * @var \Spryker\Shared\Kernel\Store
+     */
+    protected $store;
+
+    /**
+     * RedirectValidator constructor.
+     *
+     * @param  \Spryker\Shared\Kernel\Store  $store
+     */
+    public function __construct(Store $store)
+    {
+        $this->store = $store;
+    }
 
     /**
      * @return bool
@@ -35,11 +52,33 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     }
 
     /**
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     *
      * @return bool
      */
-    public function isRemoveTrailingSlashRedirectAllowed(): bool
+    public function isRemoveTrailingSlashRedirectAllowed(Request $request): bool
     {
-        return $this->redirectCrawler();
+        $availableLocale = $this->store->getLocales();
+        $pathInfo = ltrim(rtrim($request->getPathInfo(), '/'), '/');
+        $canRedirect = true;
+        if (array_key_exists($pathInfo, $availableLocale) && sprintf('/%s/', $pathInfo) === $request->getPathInfo()){
+            $canRedirect = false;
+        }
+
+        return $this->redirectCrawler() === true && $canRedirect === true;
+    }
+
+    /**
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     *
+     * @return bool
+     */
+    public function isHome(Request $request): bool
+    {
+        $availableLocale = $this->store->getLocales();
+        $pathInfo = ltrim(rtrim($request->getPathInfo(), '/'), '/');
+
+        return array_key_exists($pathInfo, $availableLocale);
     }
 
     /**

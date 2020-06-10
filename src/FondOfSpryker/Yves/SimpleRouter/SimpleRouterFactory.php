@@ -9,6 +9,7 @@ use FondOfSpryker\Yves\SimpleRouter\RouteEnhancer\SimpleRouterControllerRouteEnh
 use FondOfSpryker\Yves\SimpleRouter\Router\SimpleRouter;
 use FondOfSpryker\Yves\SimpleRouter\UrlGenerator\SimpleRouterUrlGenerator;
 use FondOfSpryker\Yves\SimpleRouter\Validator\RedirectValidator;
+use FondOfSpryker\Yves\SimpleRouter\Validator\RedirectValidatorInterface;
 use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use Sinergi\BrowserDetector\Language;
 use Spryker\Shared\Kernel\Store;
@@ -97,8 +98,12 @@ class SimpleRouterFactory extends AbstractFactory
         );
     }
 
-    public function createRedirectValidator(){
-        return new RedirectValidator();
+    /**
+     * @return \FondOfSpryker\Yves\SimpleRouter\Validator\RedirectValidatorInterface
+     */
+    public function createRedirectValidator(): RedirectValidatorInterface
+    {
+        return new RedirectValidator($this->getStoreInstance());
     }
 
     /**

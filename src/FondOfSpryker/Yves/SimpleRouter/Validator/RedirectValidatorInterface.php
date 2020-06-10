@@ -3,6 +3,8 @@
 namespace FondOfSpryker\Yves\SimpleRouter\Validator;
 
 
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Class RedirectValidator
  * @package FondOfSpryker\Yves\SimpleRouter\Validator
@@ -26,9 +28,18 @@ interface RedirectValidatorInterface
     public function isLanguageValidationRedirectAllowed(string $pathInfo, string $method): bool;
 
     /**
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     *
      * @return bool
      */
-    public function isRemoveTrailingSlashRedirectAllowed(): bool;
+    public function isRemoveTrailingSlashRedirectAllowed(Request $request): bool;
+
+    /**
+     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     *
+     * @return bool
+     */
+    public function isHome(Request $request): bool;
 
     /**
      * @param  string  $pathInfo
