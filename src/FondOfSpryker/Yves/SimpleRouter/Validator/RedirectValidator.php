@@ -58,10 +58,10 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
      */
     public function isRemoveTrailingSlashRedirectAllowed(Request $request): bool
     {
-        $availableLocale = $this->store->getLocales();
+        $availableLocale = $this->getAvailableLocale();
         $pathInfo = ltrim(rtrim($request->getPathInfo(), '/'), '/');
         $canRedirect = true;
-        if (array_key_exists($pathInfo, $availableLocale) && sprintf('/%s/', $pathInfo) === $request->getPathInfo()){
+        if (array_key_exists($pathInfo, $availableLocale) && sprintf('/%s/', $pathInfo) === $request->getPathInfo()) {
             $canRedirect = false;
         }
 
@@ -75,7 +75,7 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
      */
     public function isHome(Request $request): bool
     {
-        $availableLocale = $this->store->getLocales();
+        $availableLocale = $this->getAvailableLocale();
         $pathInfo = ltrim(rtrim($request->getPathInfo(), '/'), '/');
 
         return array_key_exists($pathInfo, $availableLocale);
@@ -93,6 +93,14 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     }
 
     /**
+     * @return array
+     */
+    protected function getAvailableLocale(): array
+    {
+        return $this->store->getLocales();
+    }
+
+    /**
      * @return bool
      */
     public function redirectCrawler(): bool
@@ -106,8 +114,8 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
 
 
     /**
-     * @param string $pathInfo
-     * @param string $method
+     * @param  string  $pathInfo
+     * @param  string  $method
      *
      * @return bool
      */
@@ -124,8 +132,8 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     }
 
     /**
-     * @param string $pathInfo
-     * @param string $startingPart
+     * @param  string  $pathInfo
+     * @param  string  $startingPart
      *
      * @return bool
      */
@@ -135,7 +143,7 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     }
 
     /**
-     * @param string $pathInfo
+     * @param  string  $pathInfo
      *
      * @return string
      */
@@ -150,7 +158,7 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     }
 
     /**
-     * @param string $method
+     * @param  string  $method
      * @param $methods
      *
      * @return bool
