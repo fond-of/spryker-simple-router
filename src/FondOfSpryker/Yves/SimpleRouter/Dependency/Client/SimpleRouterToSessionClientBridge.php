@@ -12,9 +12,7 @@ class SimpleRouterToSessionClientBridge implements SimpleRouterToSessionClientIn
     protected $sessionClient;
 
     /**
-     * RouterToSessionClientBridge constructor.
-     *
-     * @param  \Spryker\Client\Session\SessionClientInterface  $sessionClient
+     * @param \Spryker\Client\Session\SessionClientInterface $sessionClient
      */
     public function __construct(SessionClientInterface $sessionClient)
     {
@@ -22,8 +20,8 @@ class SimpleRouterToSessionClientBridge implements SimpleRouterToSessionClientIn
     }
 
     /**
-     * @param  string  $name
-     * @param  null  $default
+     * @param string $name
+     * @param null $default
      *
      * @return mixed
      */
@@ -33,8 +31,8 @@ class SimpleRouterToSessionClientBridge implements SimpleRouterToSessionClientIn
     }
 
     /**
-     * @param  string  $name
-     * @param  mixed  $value
+     * @param string $name
+     * @param mixed $value
      *
      * @return void
      */

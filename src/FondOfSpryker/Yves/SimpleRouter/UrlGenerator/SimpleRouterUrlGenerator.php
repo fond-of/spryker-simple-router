@@ -23,6 +23,9 @@ class SimpleRouterUrlGenerator implements UrlGeneratorInterface
         throw new RouteNotFoundException('YET NOT IMPLEMENTED');
     }
 
+    /**
+     * @return void
+     */
     public function setContext(RequestContext $context)
     {
         $this->requestContext = $context;
@@ -32,5 +35,4 @@ class SimpleRouterUrlGenerator implements UrlGeneratorInterface
     {
         return $this->requestContext;
     }
-
 }

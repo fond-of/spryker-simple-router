@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class RedirectValidator
+ *
  * @package FondOfSpryker\Yves\SimpleRouter\Validator
  *
  * @method \FondOfSpryker\Yves\SimpleRouter\SimpleRouterConfig getConfig()
@@ -23,9 +24,7 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     protected $store;
 
     /**
-     * RedirectValidator constructor.
-     *
-     * @param  \Spryker\Shared\Kernel\Store  $store
+     * @param \Spryker\Shared\Kernel\Store $store
      */
     public function __construct(Store $store)
     {
@@ -41,8 +40,8 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     }
 
     /**
-     * @param  string  $pathInfo
-     * @param  string  $method
+     * @param string $pathInfo
+     * @param string $method
      *
      * @return bool
      */
@@ -52,7 +51,7 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     }
 
     /**
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return bool
      */
@@ -69,7 +68,7 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     }
 
     /**
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return bool
      */
@@ -82,8 +81,8 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     }
 
     /**
-     * @param  string  $pathInfo
-     * @param  string  $method
+     * @param string $pathInfo
+     * @param string $method
      *
      * @return bool
      */
@@ -112,10 +111,9 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
         return $this->getConfig()->redirectCrawler();
     }
 
-
     /**
-     * @param  string  $pathInfo
-     * @param  string  $method
+     * @param string $pathInfo
+     * @param string $method
      *
      * @return bool
      */
@@ -132,8 +130,8 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     }
 
     /**
-     * @param  string  $pathInfo
-     * @param  string  $startingPart
+     * @param string $pathInfo
+     * @param string $startingPart
      *
      * @return bool
      */
@@ -143,7 +141,7 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     }
 
     /**
-     * @param  string  $pathInfo
+     * @param string $pathInfo
      *
      * @return string
      */
@@ -158,7 +156,7 @@ class RedirectValidator extends AbstractPlugin implements RedirectValidatorInter
     }
 
     /**
-     * @param  string  $method
+     * @param string $method
      * @param $methods
      *
      * @return bool

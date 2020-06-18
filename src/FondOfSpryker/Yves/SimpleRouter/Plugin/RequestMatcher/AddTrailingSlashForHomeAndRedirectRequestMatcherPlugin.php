@@ -9,16 +9,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class CrawlerRequestMatcherPlugin
+ *
  * @method \FondOfSpryker\Yves\SimpleRouter\SimpleRouterFactory getFactory()
  * @method \FondOfSpryker\Yves\SimpleRouter\SimpleRouterConfig getConfig()
  */
 class AddTrailingSlashForHomeAndRedirectRequestMatcherPlugin extends AbstractPlugin implements RequestMatcherPluginInterface
 {
     /**
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return array
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function handle(Request $request): array
     {
@@ -40,7 +40,7 @@ class AddTrailingSlashForHomeAndRedirectRequestMatcherPlugin extends AbstractPlu
     }
 
     /**
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return array
      */
@@ -53,8 +53,8 @@ class AddTrailingSlashForHomeAndRedirectRequestMatcherPlugin extends AbstractPlu
     }
 
     /**
-     * @param  string  $uri
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param string $uri
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return string
      */
@@ -78,5 +78,4 @@ class AddTrailingSlashForHomeAndRedirectRequestMatcherPlugin extends AbstractPlu
     {
         return ['to_url' => $toUri, 'status' => $statusCode, 'type' => SimpleRouterConstants::REDIRECT_TYPE];
     }
-
 }
