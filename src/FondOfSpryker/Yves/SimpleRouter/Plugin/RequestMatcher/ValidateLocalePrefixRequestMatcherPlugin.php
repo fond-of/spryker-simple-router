@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class CrawlerRequestMatcherPlugin
+ *
  * @method \FondOfSpryker\Yves\SimpleRouter\SimpleRouterFactory getFactory()
  * @method \FondOfSpryker\Yves\SimpleRouter\SimpleRouterConfig getConfig()
  */
@@ -17,15 +18,14 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     private const USER_DEFAULT_LOCALE_PREFIX = 'USER_DEFAULT_LOCALE_PREFIX';
 
     /**
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return array
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     public function handle(Request $request): array
     {
         $pathInfo = $request->getPathInfo();
-        if ($this->hasValidLocalePrefix($pathInfo) === false ) {
+        if ($this->hasValidLocalePrefix($pathInfo) === false) {
             return $this->redirectWithLocale($request, $pathInfo);
         }
 
@@ -33,10 +33,9 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     }
 
     /**
-     * @param  string  $pathInfo
+     * @param string $pathInfo
      *
      * @return bool
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function hasValidLocalePrefix(string $pathInfo): bool
     {
@@ -55,9 +54,9 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     }
 
     /**
-     * @param  string  $locale
+     * @param string $locale
      *
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
+     * @return void
      */
     protected function setUserDefaultLocalePrefix(string $locale): void
     {
@@ -65,10 +64,9 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     }
 
     /**
-     * @param  string  $locale
+     * @param string $locale
      *
      * @return bool
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function isLocaleAvailableInCurrentStore(string $locale): bool
     {
@@ -76,11 +74,10 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     }
 
     /**
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
-     * @param  string  $additionalPath
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $additionalPath
      *
      * @return string[]
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function redirectWithLocale(Request $request, string $additionalPath = ''): array
     {
@@ -92,10 +89,9 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     }
 
     /**
-     * @param  string  $defaultLocale
+     * @param string $defaultLocale
      *
      * @return string
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getUriLocale(string $defaultLocale = 'en'): string
     {
@@ -117,10 +113,9 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     }
 
     /**
-     * @param  string  $fallbackRoutePrefixLocale
+     * @param string $fallbackRoutePrefixLocale
      *
      * @return string
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getDefaultStoreRouteLocalePrefix(string $fallbackRoutePrefixLocale = 'en'): string
     {
@@ -146,8 +141,8 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     }
 
     /**
-     * @param  string  $uri
-     * @param  \Symfony\Component\HttpFoundation\Request  $request
+     * @param string $uri
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return string
      */
@@ -163,7 +158,6 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
 
     /**
      * @return string|null
-     * @throws \Spryker\Yves\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getUserDefaultLocalePrefix(): ?string
     {
@@ -180,5 +174,4 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     {
         return ['to_url' => $toUri, 'status' => $statusCode, 'type' => SimpleRouterConstants::REDIRECT_TYPE];
     }
-
 }

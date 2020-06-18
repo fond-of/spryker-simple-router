@@ -2,6 +2,8 @@
 
 namespace FondOfSpryker\Yves\SimpleRouter\Exception;
 
-class DefaultResourceCreatorNotSetException extends \Exception
+use Exception;
+
+class DefaultResourceCreatorNotSetException extends Exception
 {
 }

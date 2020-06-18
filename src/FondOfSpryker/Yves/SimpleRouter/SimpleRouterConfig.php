@@ -12,8 +12,10 @@ class SimpleRouterConfig extends AbstractBundleConfig
      */
     public function getExcludedRoutePrefixes(): array
     {
-        return $this->get(SimpleRouterConstants::YVES_EXCLUDED_ROUTE_PREFIXES,
-            ['/payone' => ['GET', 'POST'], '/error' => ['GET'], '/feed' => ['GET'], '/_profiler' => ['GET'], '/form' => ['GET', 'POST']]);
+        return $this->get(
+            SimpleRouterConstants::YVES_EXCLUDED_ROUTE_PREFIXES,
+            ['/payone' => ['GET', 'POST'], '/error' => ['GET'], '/feed' => ['GET'], '/_profiler' => ['GET'], '/form' => ['GET', 'POST']]
+        );
     }
 
     /**
@@ -25,14 +27,18 @@ class SimpleRouterConfig extends AbstractBundleConfig
     }
 
     /**
+     * @return array
+     */
+    public function getBlacklistedUrls(): array
+    {
+        return $this->get(SimpleRouterConstants::YVES_BLACKLISTED_URLS, []);
+    }
+
+    /**
      * @return bool
      */
     public function redirectCrawler(): bool
     {
         return $this->get(SimpleRouterConstants::SHOULD_REDIRECT_CRAWLER, false);
-    }
-
-    public function isRedirectAllowed(){
-
     }
 }

@@ -13,6 +13,8 @@ interface SimpleRouterConstants
      */
     public const YVES_EXCLUDED_ROUTE_PREFIXES = 'SIMPLE_ROUTER:YVES_EXCLUDED_ROUTE_PREFIXES';
 
+    public const YVES_BLACKLISTED_URLS = 'SIMPLE_ROUTER:YVES_BLACKLISTED_URLS';
+
     public const BLACKLISTED_LOCALE_PREFIXES = 'SIMPLE_ROUTER:YVES_BLACKLISTED_ROUTE_LOCALE_PREFIXES';
 
     public const SHOULD_REDIRECT_CRAWLER = 'SIMPLE_ROUTER:SHOULD_REDIRECT_CRAWLER';
@@ -22,4 +24,6 @@ interface SimpleRouterConstants
     public const INTERNAL_REDIRECT_TYPE = 'internalRedirect';
 
     public const RESOURCE_NOT_FOUND_TYPE = 'resourceNotFound';
+
+    public const URL_LANG_PATTERN = '{lang-prefix}';
 }
