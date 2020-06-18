@@ -107,6 +107,11 @@ class UrlBlacklistRequestMatcherPlugin extends AlwaysRedirectFromBlacklistedLoca
             $this->storeInstance = Store::getInstance();
         }
 
+        $language = array_search($this->storeInstance->getCurrentLocale(), $this->storeInstance->getLocales());
+        if ($language !== false) {
+            return $language;
+        }
+
         return $this->storeInstance->getCurrentLanguage();
     }
 
