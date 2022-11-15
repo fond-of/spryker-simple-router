@@ -47,7 +47,11 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
         $isLocaleAvailable = $this->isLocaleAvailableInCurrentStore($explodePath[0]);
 
         if ($isLocaleAvailable) {
-            $this->setUserDefaultLocalePrefix($explodePath[0]);
+            try {
+                $this->setUserDefaultLocalePrefix($explodePath[0]);
+            } catch(\Throwable $t){
+                // catch session exceptions
+            }
         }
 
         return $isLocaleAvailable;
