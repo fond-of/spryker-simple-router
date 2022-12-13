@@ -139,7 +139,7 @@ class AlwaysRedirectFromBlacklistedLocaleRequestMatcherPlugin extends AbstractPl
     }
 
     /**
-     * @param array|string $redirectLocale
+     * @param array $redirectLocale
      *
      * @throws \FondOfSpryker\Yves\SimpleRouter\Exception\WrongConfigurationException
      *

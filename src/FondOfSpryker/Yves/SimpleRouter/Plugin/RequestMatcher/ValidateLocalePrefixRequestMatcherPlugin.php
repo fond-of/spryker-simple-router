@@ -19,7 +19,7 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     /**
      * @var string
      */
-    private const USER_DEFAULT_LOCALE_PREFIX = 'USER_DEFAULT_LOCALE_PREFIX';
+    protected const USER_DEFAULT_LOCALE_PREFIX = 'USER_DEFAULT_LOCALE_PREFIX';
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -44,6 +44,8 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     protected function hasValidLocalePrefix(string $pathInfo): bool
     {
         $explodePath = explode('/', trim($pathInfo, '/'));
+
+        // @phpstan-ignore-next-line
         if (count($explodePath) === 0) {
             return false;
         }
