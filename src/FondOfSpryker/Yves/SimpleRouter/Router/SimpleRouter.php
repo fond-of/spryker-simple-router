@@ -15,7 +15,7 @@ class SimpleRouter extends SymfonyDynamicRouter
     /**
      * @param \Symfony\Component\Routing\Matcher\RequestMatcherInterface $requestMatcher
      * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     * @param \Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface[] $routeEnhancers
+     * @param array<\Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface> $routeEnhancers
      */
     public function __construct(RequestMatcherInterface $requestMatcher, UrlGeneratorInterface $urlGenerator, array $routeEnhancers = [])
     {

@@ -13,12 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
 class SimpleRouterControllerRouteEnhancer implements RouteEnhancerInterface
 {
     /**
-     * @var \FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\ResourceCreatorPluginInterface[]
+     * @var array<\FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\ResourceCreatorPluginInterface>
      */
     protected $resourceCreatorPlugins;
 
     /**
-     * @param \FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\ResourceCreatorPluginInterface[] $resourceCreatorPlugins
+     * @param array<\FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\ResourceCreatorPluginInterface> $resourceCreatorPlugins
      */
     public function __construct(array $resourceCreatorPlugins)
     {
@@ -55,7 +55,7 @@ class SimpleRouterControllerRouteEnhancer implements RouteEnhancerInterface
         $bundleControllerAction = new BundleControllerAction(
             $resourceCreator->getModuleName(),
             $resourceCreator->getControllerName(),
-            $resourceCreator->getActionName()
+            $resourceCreator->getActionName(),
         );
         $routeResolver = new BundleControllerActionRouteNameResolver($bundleControllerAction);
 
@@ -66,6 +66,7 @@ class SimpleRouterControllerRouteEnhancer implements RouteEnhancerInterface
             $actionName .= 'Action';
         }
 
+        $resourceCreatorResult = [];
         $resourceCreatorResult['meta'] = $data;
         $resourceCreatorResult['_controller'] = [$controller, $actionName];
         $resourceCreatorResult['_route'] = $routeResolver->resolve();

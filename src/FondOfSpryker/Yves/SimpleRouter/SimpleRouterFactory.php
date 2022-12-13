@@ -37,7 +37,7 @@ class SimpleRouterFactory extends AbstractFactory
     }
 
     /**
-     * @return \Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface[]
+     * @return array<\Symfony\Cmf\Component\Routing\Enhancer\RouteEnhancerInterface>
      */
     public function createRouteEnhancer(): array
     {
@@ -71,7 +71,7 @@ class SimpleRouterFactory extends AbstractFactory
     }
 
     /**
-     * @return \FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\RequestMatcherPluginInterface[]
+     * @return array<\FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\RequestMatcherPluginInterface>
      */
     public function getSimpleRouterRequestMatcherPlugins(): array
     {
@@ -79,7 +79,7 @@ class SimpleRouterFactory extends AbstractFactory
     }
 
     /**
-     * @return \FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\ResourceCreatorPluginInterface[]
+     * @return array<\FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\ResourceCreatorPluginInterface>
      */
     public function getSimpleRouterResourceCreatorPlugins(): array
     {
@@ -94,7 +94,7 @@ class SimpleRouterFactory extends AbstractFactory
         return new SimpleRouter(
             $this->createSimpleRouterRequestMatcher(),
             $this->createSimpleRouterUrlGenerator(),
-            $this->createRouteEnhancer()
+            $this->createRouteEnhancer(),
         );
     }
 

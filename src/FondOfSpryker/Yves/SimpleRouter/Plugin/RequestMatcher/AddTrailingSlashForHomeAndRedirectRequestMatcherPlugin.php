@@ -72,7 +72,7 @@ class AddTrailingSlashForHomeAndRedirectRequestMatcherPlugin extends AbstractPlu
      * @param string $toUri
      * @param int $statusCode
      *
-     * @return string[]
+     * @return array<string>
      */
     protected function createRedirect(string $toUri, int $statusCode = 301): array
     {

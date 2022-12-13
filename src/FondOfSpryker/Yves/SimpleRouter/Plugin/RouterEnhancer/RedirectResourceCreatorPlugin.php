@@ -21,26 +21,41 @@ class RedirectResourceCreatorPlugin implements ResourceCreatorPluginInterface
         $this->isDefault = $isDefault;
     }
 
+    /**
+     * @return string
+     */
     public function getType(): string
     {
         return SimpleRouterConstants::REDIRECT_TYPE;
     }
 
+    /**
+     * @return string
+     */
     public function getModuleName(): string
     {
         return 'RedirectPage';
     }
 
+    /**
+     * @return string
+     */
     public function getActionName(): string
     {
         return 'redirect';
     }
 
+    /**
+     * @return string
+     */
     public function getControllerName(): string
     {
         return 'Redirect';
     }
 
+    /**
+     * @return bool
+     */
     public function isDefault(): bool
     {
         return $this->isDefault;

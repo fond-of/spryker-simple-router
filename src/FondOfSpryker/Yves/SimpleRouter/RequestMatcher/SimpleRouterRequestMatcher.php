@@ -9,12 +9,12 @@ use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
 class SimpleRouterRequestMatcher implements RequestMatcherInterface
 {
     /**
-     * @var array|\FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\RequestMatcherPluginInterface[]
+     * @var array<\FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\RequestMatcherPluginInterface>
      */
     protected $requestMatcherPlugins;
 
     /**
-     * @param \FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\RequestMatcherPluginInterface[] $requestMatcherPlugins
+     * @param array<\FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\RequestMatcherPluginInterface> $requestMatcherPlugins
      */
     public function __construct(array $requestMatcherPlugins)
     {

@@ -21,7 +21,7 @@ class SimpleRouterToSessionClientBridge implements SimpleRouterToSessionClientIn
 
     /**
      * @param string $name
-     * @param null $default
+     * @param mixed $default
      *
      * @return mixed
      */

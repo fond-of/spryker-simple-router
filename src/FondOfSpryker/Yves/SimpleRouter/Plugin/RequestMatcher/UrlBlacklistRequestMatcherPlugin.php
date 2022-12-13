@@ -94,7 +94,7 @@ class UrlBlacklistRequestMatcherPlugin extends AlwaysRedirectFromBlacklistedLoca
 
         return sprintf(
             '/%s',
-            $this->cleanString(str_replace(SimpleRouterConstants::URL_LANG_PATTERN, $langPrefix, $redirectPattern))
+            $this->cleanString(str_replace(SimpleRouterConstants::URL_LANG_PATTERN, $langPrefix, $redirectPattern)),
         );
     }
 
@@ -126,7 +126,7 @@ class UrlBlacklistRequestMatcherPlugin extends AlwaysRedirectFromBlacklistedLoca
         $uri = sprintf(
             '%s/%s',
             $request->getSchemeAndHttpHost(),
-            $this->cleanString($redirectToUrl)
+            $this->cleanString($redirectToUrl),
         );
 
         $uri = $this->appendQueryStringToUri($uri, $request);

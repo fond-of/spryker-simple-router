@@ -18,6 +18,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class RouterLanguageRedirectEventDispatcherPlugin extends AbstractPlugin implements EventDispatcherPluginInterface
 {
+    /**
+     * @var string
+     */
     protected const USER_DEFAULT_LOCALE_PREFIX = 'USER_DEFAULT_LOCALE_PREFIX';
 
     /**
@@ -93,7 +96,7 @@ class RouterLanguageRedirectEventDispatcherPlugin extends AbstractPlugin impleme
     {
         return array_key_exists(
             $locale,
-            $this->getFactory()->getStoreClient()->getCurrentStore()->getAvailableLocaleIsoCodes()
+            $this->getFactory()->getStoreClient()->getCurrentStore()->getAvailableLocaleIsoCodes(),
         );
     }
 
