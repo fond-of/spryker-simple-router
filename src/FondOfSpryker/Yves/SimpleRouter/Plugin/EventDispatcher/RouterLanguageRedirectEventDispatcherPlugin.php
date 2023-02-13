@@ -65,7 +65,7 @@ class RouterLanguageRedirectEventDispatcherPlugin extends AbstractPlugin impleme
 
     /**
      * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     * 
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     protected function createLanguageRedirectResponse(RequestEvent $event): RedirectResponse

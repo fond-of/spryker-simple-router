@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3",
+    "php": ">=8.0",
     "jaybizzle/crawler-detect": "^1.2.0",
     "sinergi/browser-detector": "^6.1.0",
     "spryker/session": "^2.0.0 || ^3.0.0 || ^4.0.0",
