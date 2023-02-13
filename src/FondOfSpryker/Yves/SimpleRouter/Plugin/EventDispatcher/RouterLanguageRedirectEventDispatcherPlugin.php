@@ -56,7 +56,7 @@ class RouterLanguageRedirectEventDispatcherPlugin extends AbstractPlugin impleme
         $eventDispatcher->addListener(KernelEvents::REQUEST, function (RequestEvent $event): void {
             $request = $event->getRequest();
             if ($request->getPathInfo() === '/' && $this->getFactory()->createRedirectValidator()->isLanguageRedirectAllowed() === true) {
-                $event->setResponse($this->createLanguageRedirectResponse());
+                $event->setResponse($this->createLanguageRedirectResponse($event));
             }
         });
 
@@ -64,11 +64,29 @@ class RouterLanguageRedirectEventDispatcherPlugin extends AbstractPlugin impleme
     }
 
     /**
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
+     * 
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    protected function createLanguageRedirectResponse(): RedirectResponse
+    protected function createLanguageRedirectResponse(RequestEvent $event): RedirectResponse
     {
-        return new RedirectResponse($this->getUriLocale(), 301);
+        $queryString = $this->getQueryString($event->getRequest()->getQueryString());
+        $target = sprintf('/%s/%s', $this->getUriLocale(), $queryString);
+        return new RedirectResponse($target, 301);
+    }
+
+    /**
+     * @param string $queryString
+     *
+     * @return string
+     */
+    protected function getQueryString(string $queryString): string
+    {
+        if (strlen($queryString) > 0) {
+            return sprintf('?%s', $queryString);
+        }
+
+        return '';
     }
 
     /**
