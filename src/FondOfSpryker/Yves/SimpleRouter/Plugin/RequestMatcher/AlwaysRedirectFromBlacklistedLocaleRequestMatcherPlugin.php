@@ -16,9 +16,19 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class AlwaysRedirectFromBlacklistedLocaleRequestMatcherPlugin extends AbstractPlugin implements RequestMatcherPluginInterface
 {
+    /**
+     * @var string
+     */
     public const DEFAULT_REDIRECT_LOCALE = '/en';
 
+    /**
+     * @var string
+     */
     protected const FROM = 'from';
+
+    /**
+     * @var string
+     */
     protected const TO = 'to';
 
     /**
@@ -81,9 +91,9 @@ class AlwaysRedirectFromBlacklistedLocaleRequestMatcherPlugin extends AbstractPl
     /**
      * @param string $pathInfo
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param array $redirectLocale
+     * @param array $redirect
      *
-     * @return string[]
+     * @return array<string>
      */
     protected function redirectToLocale(string $pathInfo, Request $request, array $redirect): array
     {
@@ -93,7 +103,7 @@ class AlwaysRedirectFromBlacklistedLocaleRequestMatcherPlugin extends AbstractPl
         $uri = sprintf(
             '%s/%s',
             $request->getSchemeAndHttpHost(),
-            $redirectLocale
+            $redirectLocale,
         );
 
         $uri = $this->appendQueryStringToUri($uri, $request);
@@ -121,7 +131,7 @@ class AlwaysRedirectFromBlacklistedLocaleRequestMatcherPlugin extends AbstractPl
      * @param string $toUri
      * @param int $statusCode
      *
-     * @return string[]
+     * @return array<string>
      */
     protected function createRedirect(string $toUri, int $statusCode = 301): array
     {
@@ -129,7 +139,7 @@ class AlwaysRedirectFromBlacklistedLocaleRequestMatcherPlugin extends AbstractPl
     }
 
     /**
-     * @param string|array $redirectLocale
+     * @param array $redirectLocale
      *
      * @throws \FondOfSpryker\Yves\SimpleRouter\Exception\WrongConfigurationException
      *

@@ -21,26 +21,41 @@ class RedirectInternalResourceCreatorPlugin implements ResourceCreatorPluginInte
         $this->isDefault = $isDefault;
     }
 
+    /**
+     * @return string
+     */
     public function getType(): string
     {
         return SimpleRouterConstants::INTERNAL_REDIRECT_TYPE;
     }
 
+    /**
+     * @return string
+     */
     public function getModuleName(): string
     {
         return 'Redirect';
     }
 
+    /**
+     * @return string
+     */
     public function getActionName(): string
     {
         return 'redirectInternal';
     }
 
+    /**
+     * @return string
+     */
     public function getControllerName(): string
     {
         return 'Redirect';
     }
 
+    /**
+     * @return bool
+     */
     public function isDefault(): bool
     {
         return $this->isDefault;

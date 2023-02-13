@@ -14,7 +14,7 @@ class SimpleRouterConfig extends AbstractBundleConfig
     {
         return $this->get(
             SimpleRouterConstants::YVES_EXCLUDED_ROUTE_PREFIXES,
-            ['/payone' => ['GET', 'POST'], '/error' => ['GET'], '/feed' => ['GET'], '/_profiler' => ['GET'], '/form' => ['GET', 'POST']]
+            ['/payone' => ['GET', 'POST'], '/error' => ['GET'], '/feed' => ['GET'], '/_profiler' => ['GET'], '/form' => ['GET', 'POST']],
         );
     }
 

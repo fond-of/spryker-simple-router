@@ -6,6 +6,7 @@ use FondOfSpryker\Shared\SimpleRouter\SimpleRouterConstants;
 use FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\RequestMatcherPluginInterface;
 use Spryker\Yves\Kernel\AbstractPlugin;
 use Symfony\Component\HttpFoundation\Request;
+use Throwable;
 
 /**
  * Class CrawlerRequestMatcherPlugin
@@ -15,7 +16,10 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements RequestMatcherPluginInterface
 {
-    private const USER_DEFAULT_LOCALE_PREFIX = 'USER_DEFAULT_LOCALE_PREFIX';
+    /**
+     * @var string
+     */
+    protected const USER_DEFAULT_LOCALE_PREFIX = 'USER_DEFAULT_LOCALE_PREFIX';
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -40,6 +44,8 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
     protected function hasValidLocalePrefix(string $pathInfo): bool
     {
         $explodePath = explode('/', trim($pathInfo, '/'));
+
+        // @phpstan-ignore-next-line
         if (count($explodePath) === 0) {
             return false;
         }
@@ -49,7 +55,7 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
         if ($isLocaleAvailable) {
             try {
                 $this->setUserDefaultLocalePrefix($explodePath[0]);
-            } catch(\Throwable $t){
+            } catch (Throwable $t) {
                 // catch session exceptions
             }
         }
@@ -81,7 +87,7 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $additionalPath
      *
-     * @return string[]
+     * @return array<string>
      */
     protected function redirectWithLocale(Request $request, string $additionalPath = ''): array
     {
@@ -129,8 +135,9 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
         }
 
         $storeLocaleRoutePrefixes = array_keys($storeLocales);
-        if (!is_array($storeLocaleRoutePrefixes) || empty($storeLocaleRoutePrefixes)) {
-            return $storeLocaleRoutePrefixes;
+
+        if (!$storeLocaleRoutePrefixes) {
+            return $fallbackRoutePrefixLocale;
         }
 
         return array_shift($storeLocaleRoutePrefixes);
@@ -172,7 +179,7 @@ class ValidateLocalePrefixRequestMatcherPlugin extends AbstractPlugin implements
      * @param string $toUri
      * @param int $statusCode
      *
-     * @return string[]
+     * @return array<string>
      */
     protected function createRedirect(string $toUri, int $statusCode = 301): array
     {

@@ -6,7 +6,7 @@ interface SimpleRouterToSessionClientInterface
 {
     /**
      * @param string $name
-     * @param null $default
+     * @param mixed $default
      *
      * @return mixed
      */

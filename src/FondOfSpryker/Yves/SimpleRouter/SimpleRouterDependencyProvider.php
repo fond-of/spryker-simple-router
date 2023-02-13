@@ -13,10 +13,29 @@ use Spryker\Yves\Kernel\Container;
  */
 class SimpleRouterDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_SESSION = 'CLIENT_SESSION';
+
+    /**
+     * @var string
+     */
     public const CLIENT_STORE = 'CLIENT_STORE';
+
+    /**
+     * @var string
+     */
     public const DIRTY_STORE_INSTANCE = 'DIRTY_STORE_INSTANCE';
+
+    /**
+     * @var string
+     */
     public const PLUGIN_REQUEST_MATCHER_SIMPLE_ROUTER = 'PLUGIN_REQUEST_MATCHER_SIMPLE_ROUTER';
+
+    /**
+     * @var string
+     */
     public const PLUGIN_RESOURCE_CREATORS_SIMPLE_ROUTER = 'PLUGIN_RESOURCE_CREATORS_SIMPLE_ROUTER';
 
     /**
@@ -92,7 +111,7 @@ class SimpleRouterDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\RequestMatcherPluginInterface[]
+     * @return array<\FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\RequestMatcherPluginInterface>
      */
     protected function getRequestMatcherPluginsSimpleRouter(): array
     {
@@ -114,7 +133,7 @@ class SimpleRouterDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\ResourceCreatorPluginInterface[]
+     * @return array<\FondOfSpryker\Yves\SimpleRouter\Dependency\Plugin\ResourceCreatorPluginInterface>
      */
     protected function getSimpleRouterResourceCreatorPlugins()
     {

@@ -24,6 +24,8 @@ class SimpleRouterUrlGenerator implements UrlGeneratorInterface
     }
 
     /**
+     * @param \Symfony\Component\Routing\RequestContext $context
+     *
      * @return void
      */
     public function setContext(RequestContext $context)
@@ -31,6 +33,9 @@ class SimpleRouterUrlGenerator implements UrlGeneratorInterface
         $this->requestContext = $context;
     }
 
+    /**
+     * @return \Symfony\Component\Routing\RequestContext
+     */
     public function getContext(): RequestContext
     {
         return $this->requestContext;

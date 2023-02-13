@@ -9,8 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ResourceNotFoundResourceCreatorPlugin implements ResourceCreatorPluginInterface
 {
+    /**
+     * @var string
+     */
     protected const TEMPLATE_VAR = '_template';
 
+    /**
+     * @var string
+     */
     protected const TEMPLATE_TO_USE = 'ErrorPage/error404/index';
 
     /**
@@ -26,26 +32,41 @@ class ResourceNotFoundResourceCreatorPlugin implements ResourceCreatorPluginInte
         $this->isDefault = $isDefault;
     }
 
+    /**
+     * @return string
+     */
     public function getType(): string
     {
         return SimpleRouterConstants::RESOURCE_NOT_FOUND_TYPE;
     }
 
+    /**
+     * @return string
+     */
     public function getModuleName(): string
     {
         return 'ErrorPage';
     }
 
+    /**
+     * @return string
+     */
     public function getActionName(): string
     {
         return 'index';
     }
 
+    /**
+     * @return string
+     */
     public function getControllerName(): string
     {
         return 'Error404';
     }
 
+    /**
+     * @return bool
+     */
     public function isDefault(): bool
     {
         return $this->isDefault;

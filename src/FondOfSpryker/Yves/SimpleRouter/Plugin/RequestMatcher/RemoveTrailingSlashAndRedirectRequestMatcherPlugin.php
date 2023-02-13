@@ -72,7 +72,7 @@ class RemoveTrailingSlashAndRedirectRequestMatcherPlugin extends AbstractPlugin 
      * @param string $toUri
      * @param int $statusCode
      *
-     * @return string[]
+     * @return array<string>
      */
     protected function createRedirect(string $toUri, int $statusCode = 301): array
     {
