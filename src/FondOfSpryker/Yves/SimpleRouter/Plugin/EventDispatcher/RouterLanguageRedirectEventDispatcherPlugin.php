@@ -72,7 +72,7 @@ class RouterLanguageRedirectEventDispatcherPlugin extends AbstractPlugin impleme
     {
         $queryString = $this->getQueryString($event->getRequest()->getQueryString());
         $target = sprintf('/%s/%s', $this->getUriLocale(), $queryString);
-        
+
         return new RedirectResponse($target, 301);
     }
 
