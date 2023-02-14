@@ -77,7 +77,7 @@ class RouterLanguageRedirectEventDispatcherPlugin extends AbstractPlugin impleme
     }
 
     /**
-     * @param null|string $queryString
+     * @param string|null $queryString
      *
      * @return string
      */
