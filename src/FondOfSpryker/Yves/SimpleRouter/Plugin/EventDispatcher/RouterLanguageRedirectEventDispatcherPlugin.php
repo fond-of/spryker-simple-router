@@ -77,13 +77,13 @@ class RouterLanguageRedirectEventDispatcherPlugin extends AbstractPlugin impleme
     }
 
     /**
-     * @param string $queryString
+     * @param string|null $queryString
      *
      * @return string
      */
-    protected function getQueryString(string $queryString): string
+    protected function getQueryString(?string $queryString): string
     {
-        if (strlen($queryString) > 0) {
+        if ($queryString !== null && strlen($queryString) > 0) {
             return sprintf('?%s', $queryString);
         }
 
